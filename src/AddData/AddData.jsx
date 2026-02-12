@@ -9,6 +9,34 @@ function TableComponent(){
   const [sortBy, setSortBy] = useState("name"); // Default sorting by ID
   const [sortOrder, setSortOrder] = useState("asc"); // Default ascending order
 
+    const [maxNum, setmaxNum] = useState(0)
+   
+  
+    const max= ()=> {
+        data.filter((item) => {
+            if(item.attacksCount >maxNum) {
+            setmaxNum(item.attacksCount)
+            }
+        })
+    }
+    
+    max()
+    let denger = ""
+
+    function findDengar(){
+        denger = data.find((item)=>{
+                
+        item.imageUrl !== null && 
+        item.attacksCount == max &&
+        item.status === "active"
+        })
+    }
+
+    const handleClick = () => {
+       
+    };
+
+    
 
   // Function to handle sorting
   const handleSort = (key) => {
@@ -40,7 +68,7 @@ function TableComponent(){
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-
+      
       
       <select
         value={filterCity}
@@ -53,6 +81,14 @@ function TableComponent(){
           </option>
         ))}
       </select>
+       
+            <button  onClick={handleClick}>
+              Find most Dangerous
+            </button>
+
+        
+      
+
       <table border="1">
         <thead>
           <tr>
@@ -94,6 +130,7 @@ function TableComponent(){
             ))}
         </tbody>
       </table>
+      <div>{denger}</div>
     </div>
   );
 };
